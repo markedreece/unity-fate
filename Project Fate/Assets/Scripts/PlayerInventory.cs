@@ -49,7 +49,6 @@ public class PlayerInventory : MonoBehaviour
 
     public void PickUp(GameObject item)
     {
-        item.GetComponent<ItemScript>().InitItem();
         if (item.GetComponent<ItemScript>().itemData.type == Item.itemType.Kinetic)
         {
             if(kinetic == null) { kinetic = item; return; }

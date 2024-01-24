@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            GameObject.Find("Player").GetComponent<PlayerInventory>().PickUp(allItems[Random.Range(0, allItems.Length - 1)]);
+            GameObject newItem = Instantiate(allItems[Random.Range(0, allItems.Length - 1)]) as GameObject;
+            newItem.GetComponent<ItemScript>().InitItem();
+            GameObject.Find("Player").GetComponent<PlayerInventory>().PickUp(newItem);
         }
     }
 }
