@@ -4,170 +4,64 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    [Header("Equipped")]
     public GameObject equippedWeapon;
-
-    public GameObject kinetic;
+    public GameObject primary;
+    public GameObject secondary;
     public GameObject special;
-    public GameObject heavy;
-    public GameObject helmet;
-    public GameObject chestplate;
-    public GameObject gloves;
-    public GameObject leggings;
-    public GameObject boots;
 
-    public GameObject[] kineticInventory = new GameObject[9];
-    public GameObject[] specialInventory = new GameObject[9];
-    public GameObject[] heavyInventory = new GameObject[9];
-    public GameObject[] helmetInventory = new GameObject[9];
-    public GameObject[] chestplateInventory = new GameObject[9];
-    public GameObject[] glovesInventory = new GameObject[9];
-    public GameObject[] leggingsInventory = new GameObject[9];
-    public GameObject[] bootsInventory = new GameObject[9];
 
-    private void Update()
+    [Header("Inventory")]
+    public GameObject inventory;
+
+    public void PickUp(GameObject g)
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && kinetic != null)
+        g.GetComponent<ItemScript>().InitItem();
+        GameObject newItem;
+        if (g.GetComponent<ItemScript>().itemData.type == Item.itemType.Primary)
         {
-            Equip(kinetic);
+            newItem = Instantiate(g, inventory.transform.GetChild(0)) as GameObject;
+            newItem.SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && special != null)
+        else if (g.GetComponent<ItemScript>().itemData.type == Item.itemType.Secondary)
         {
-            Equip(special);
+            newItem = Instantiate(g, inventory.transform.GetChild(1)) as GameObject;
+            newItem.SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3) && heavy != null)
+        else if (g.GetComponent<ItemScript>().itemData.type == Item.itemType.Special)
         {
-            Equip(heavy);
+            newItem = Instantiate(g, inventory.transform.GetChild(2)) as GameObject;
+            newItem.SetActive(false);
         }
-    }
-
-    public void Equip(GameObject item)
-    {
-        if(equippedWeapon == item) { return; }
-        equippedWeapon = item;
-        Instantiate(item);
-    }
-
-    public void PickUp(GameObject item)
-    {
-        if (item.GetComponent<ItemScript>().itemData.type == Item.itemType.Kinetic)
+        else if (g.GetComponent<ItemScript>().itemData.type == Item.itemType.Helmet)
         {
-            if(kinetic == null) { kinetic = item; return; }
-            else
-            {
-                for(int i = 0; i < kineticInventory.Length; i++)
-                {
-                    if(kineticInventory[i] == null)
-                    {
-                        kineticInventory[i] = item;
-                        return;
-                    }
-                }
-            }
+            newItem = Instantiate(g, inventory.transform.GetChild(3)) as GameObject;
+            newItem.SetActive(false);
         }
-        else if (item.GetComponent<ItemScript>().itemData.type == Item.itemType.Special)
+        else if (g.GetComponent<ItemScript>().itemData.type == Item.itemType.Chestplate)
         {
-            if (special == null) { special = item; return; }
-            else
-            {
-                for (int i = 0; i < specialInventory.Length; i++)
-                {
-                    if (specialInventory[i] == null)
-                    {
-                        specialInventory[i] = item;
-                        return;
-                    }
-                }
-            }
+            newItem = Instantiate(g, inventory.transform.GetChild(4)) as GameObject;
+            newItem.SetActive(false);
         }
-        else if (item.GetComponent<ItemScript>().itemData.type == Item.itemType.Heavy)
+        else if (g.GetComponent<ItemScript>().itemData.type == Item.itemType.Gloves)
         {
-            if (heavy == null) { heavy = item; return; }
-            else
-            {
-                for (int i = 0; i < heavyInventory.Length; i++)
-                {
-                    if (heavyInventory[i] == null)
-                    {
-                        heavyInventory[i] = item;
-                        return;
-                    }
-                }
-            }
+            newItem = Instantiate(g, inventory.transform.GetChild(5)) as GameObject;
+            newItem.SetActive(false);
         }
-        else if (item.GetComponent<ItemScript>().itemData.type == Item.itemType.Helmet)
+        else if (g.GetComponent<ItemScript>().itemData.type == Item.itemType.Leggings)
         {
-            if (helmet == null) { helmet = item; return; }
-            else
-            {
-                for (int i = 0; i < helmetInventory.Length; i++)
-                {
-                    if (helmetInventory[i] == null)
-                    {
-                        helmetInventory[i] = item;
-                        return;
-                    }
-                }
-            }
+            newItem = Instantiate(g, inventory.transform.GetChild(6)) as GameObject;
+            newItem.SetActive(false);
         }
-        else if (item.GetComponent<ItemScript>().itemData.type == Item.itemType.Chestplate)
+        else if (g.GetComponent<ItemScript>().itemData.type == Item.itemType.Boots)
         {
-            if (chestplate == null) { chestplate = item; return; }
-            else
-            {
-                for (int i = 0; i < chestplateInventory.Length; i++)
-                {
-                    if (chestplateInventory[i] == null)
-                    {
-                        chestplateInventory[i] = item;
-                        return;
-                    }
-                }
-            }
+            newItem = Instantiate(g, inventory.transform.GetChild(7)) as GameObject;
+            newItem.SetActive(false);
         }
-        else if (item.GetComponent<ItemScript>().itemData.type == Item.itemType.Gloves)
+        else if (g.GetComponent<ItemScript>().itemData.type == Item.itemType.Necklace)
         {
-            if (gloves == null) { gloves = item; return; }
-            else
-            {
-                for (int i = 0; i < glovesInventory.Length; i++)
-                {
-                    if (glovesInventory[i] == null)
-                    {
-                        glovesInventory[i] = item;
-                        return;
-                    }
-                }
-            }
-        }
-        else if (item.GetComponent<ItemScript>().itemData.type == Item.itemType.Leggings)
-        {
-            if (leggings == null) { leggings = item; return; }
-            else
-            {
-                for (int i = 0; i < leggingsInventory.Length; i++)
-                {
-                    if (leggingsInventory[i] == null)
-                    {
-                        leggingsInventory[i] = item;
-                        return;
-                    }
-                }
-            }
-        }
-        else if (item.GetComponent<ItemScript>().itemData.type == Item.itemType.Boots)
-        {
-            if (boots == null) { boots = item; return; }
-            else
-            {
-                for (int i = 0; i < bootsInventory.Length; i++)
-                {
-                    if (bootsInventory[i] == null)
-                    {
-                        bootsInventory[i] = item;
-                        return;
-                    }
-                }
-            }
+            newItem = Instantiate(g, inventory.transform.GetChild(8)) as GameObject;
+            newItem.SetActive(false);
         }
     }
 }

@@ -7,17 +7,16 @@ public class Item : ScriptableObject
 {
     public enum itemType
     {
-        Kinetic,
+        Primary,
+        Secondary,
         Special,
-        Heavy,
         Helmet,
         Chestplate,
         Gloves,
         Leggings,
-        Boots
+        Boots,
+        Necklace
     };
 
     public itemType type;
-
-
 }
