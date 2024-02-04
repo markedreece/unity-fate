@@ -201,4 +201,17 @@ public class PlayerInventory : MonoBehaviour
             }
         }
     }
+
+    public void SlotEquip(GameObject equipped, int slot)
+    {
+        switch (equipped.GetComponent<ItemScript>().itemData.type)
+        {
+            case Item.itemType.Primary:
+
+                break;
+            default:
+                Debug.Log("Error with SlotEquip...");
+                break;
+        }
+    }
 }
